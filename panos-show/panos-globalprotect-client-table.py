@@ -287,5 +287,5 @@ globalprotect_summary_detail = validate_xml_from_string(do_api_get_opcmd_key(ses
 
 # Begin Processing API Data - Parsing Route Tables
 # Debugging shouldn't require code changes, let's use our verbosity switches
-print(globalprotect_summary)
-print(globalprotect_summary_detail)
+print(json.dumps(globalprotect_summary))
+print(json.dumps(globalprotect_summary_detail))
