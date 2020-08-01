@@ -7,9 +7,6 @@
 import requests
 import json
 
-# XML has vulnerabilities, use DefusedXML libraries instead to offload security mitigations to the project
-# https://pypi.org/project/defusedxml/#defusedxml
-from defusedxml import ElementTree
 # We like JSON, as We'd rather have only one language for data processing. Let's try xmltodict
 import xmltodict
 
@@ -113,7 +110,7 @@ def do_api_post_key(do_api_post_auth_key, do_api_post_url, do_api_post_payload, 
 # DO API GET for API Key
 def do_api_get_auth_key(do_api_get_auth_key_user, do_api_get_auth_key_password, do_api_get_auth_key_url, do_api_get_auth_key_certvalidation):
     try:
-        api_response = xmltodict.parse(do_api_get_unpw(do_api_get_auth_key_user, do_api_get_auth_key_password, 
+        api_response = xmltodict.parse(do_api_get_unpw(do_api_get_auth_key_user, do_api_get_auth_key_password,
                                         do_api_get_auth_key_url + '/?type=keygen&user=' + do_api_get_auth_key_user + '&password=' + do_api_get_auth_key_password,
                                         do_api_get_auth_key_certvalidation), encoding='utf-8')
     except:
@@ -284,7 +281,7 @@ print('Generated PAN-OS API Key!')
 xml_payload_globalprotect_summary = get_xml_from_file('globalprotect_summary.xml')
 print(str(validate_xml_from_string(xml_payload_globalprotect_summary)) + 'Read from file!')
 xml_payload_globalprotect_summary_detail = get_xml_from_file('globalprotect_summary_detail.xml')
-print(str(validate_xml_from_string(xml_payload_globalprotect_summary)) + ' Read from file!') 
+print(str(validate_xml_from_string(xml_payload_globalprotect_summary)) + ' Read from file!')
 # TODO - XML linting doesn't appear to work here.
 # Let's try deploying the payload!
 globalprotect_summary = validate_xml_from_string(do_api_get_opcmd_key(session_auth_key, args.api_endpoint, xml_payload_globalprotect_summary, args.k))
