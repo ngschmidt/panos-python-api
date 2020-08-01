@@ -278,11 +278,9 @@ except:
 print('Generated PAN-OS API Key!')
 
 # Let's try parsing a payload
-xml_payload_globalprotect_summary = get_xml_from_file('globalprotect_summary.xml')
-print(str(validate_xml_from_string(xml_payload_globalprotect_summary)) + 'Read from file!')
-xml_payload_globalprotect_summary_detail = get_xml_from_file('globalprotect_summary_detail.xml')
-print(str(validate_xml_from_string(xml_payload_globalprotect_summary)) + ' Read from file!')
-# TODO - XML linting doesn't appear to work here.
+xml_payload_globalprotect_summary = '<show><global-protect-gateway><summary><all/></summary></global-protect-gateway></show>'
+xml_payload_globalprotect_summary_detail = '<show><global-protect-gateway><summary><detail/></summary></global-protect-gateway></show>'
+
 # Let's try deploying the payload!
 globalprotect_summary = validate_xml_from_string(do_api_get_opcmd_key(session_auth_key, args.api_endpoint, xml_payload_globalprotect_summary, args.k))
 globalprotect_summary_detail = validate_xml_from_string(do_api_get_opcmd_key(session_auth_key, args.api_endpoint, xml_payload_globalprotect_summary_detail, args.k))
