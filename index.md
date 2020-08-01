@@ -1,37 +1,34 @@
-## Welcome to GitHub Pages
+# PAN-OS Operational Commands
 
-You can use the [editor on GitHub](https://github.com/ngschmidt/panos-python-opcmds/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+## Synopsis
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Collection on routing operational commands as automation candidates. This is a pre-cursor to systems-level CRUD operations within PAN-OS, like:
 
-### Markdown
+- Ensuring BGP Neighborships are established, and exchanging routes
+- Tracking GlobalProtect client tables
+- Searching for anomalies in the session table
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## To use these examples
 
-```markdown
-Syntax highlighted code block
+Run these python scripts
 
-# Header 1
-## Header 2
-### Header 3
+## Tested Platforms
 
-- Bulleted
-- List
+- PAN-OS 9.0
+- PAN-OS 9.1
+- PAN-OS 10.0
 
-1. Numbered
-2. List
+### Dependencies
 
-**Bold** and _Italic_ and `Code` text
+- Python 3.
+- Django Core. Required for URL/URI Validation and parsing.
+- Requests. You can't really make API calls without it.
+- JSON
 
-[Link](url) and ![Image](src)
-```
+## TODO
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+- Moved to project board
 
-### Jekyll Themes
+## Authors
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ngschmidt/panos-python-opcmds/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+*Nick Schmidt*
