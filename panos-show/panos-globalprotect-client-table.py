@@ -253,7 +253,6 @@ httperrors = {
 # Arguments Parsing
 parser = argparse.ArgumentParser(description='Fetch via API')
 parser.add_argument('-v', '--verbosity', action='count', default=0, help='Output Verbosity')
-parser.add_argument('-f', help='Select XML Payload file', required=True)
 parser.add_argument('-k', action='store_false', default=True, help='Ignore Certificate Errors')
 subparsers = parser.add_subparsers(help='Use Basic or Key Authentication')
 unpw = subparsers.add_parser('basic', help='Use Basic Authentication')
