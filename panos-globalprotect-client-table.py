@@ -31,14 +31,32 @@ class IronStrataReliquary:
     strata_authkey = ''
     strata_endpoint = ''
 
-    # And win specific endpoint
+    # And construct with specific endpoint
     def __init__(self, input_verbosity, input_certvalidation, input_username, input_password, input_endpoint):
+        # Set variables from constructor
         self.strata_verbosity = input_verbosity
         self.strata_certvalidation = input_certvalidation
         self.strata_username = input_username
         self.strata_password = input_password
         self.strata_endpoint = input_endpoint
-        self.strata_authkey = ''
+
+        # Once variables are set, develop a relationship with said endpoint
+        # Ensure that API Endpoint is a valid one
+        validate = URLValidator()
+        try:
+            validate(self.strata_endpoint)
+        except:
+            print('Invalid URL. Please try a valid URL. Example: "https://10.0.0.0/api"')
+            exit()
+
+        # If URL is valid, try to establish session key
+        try:
+            api_response = xmltodict.parse(self.do_api_get(self.strata_endpoint + '/?type=keygen&user=' +
+                                           self.strata_username + '&password=' + self.strata_password), encoding='utf-8')
+        except:
+            print('An error was encountered while parsing XML API Response!')
+            exit()
+        self.strata_authkey = api_response['response']['result']['key']
 
     # Variable Declarations
     #
@@ -274,18 +292,6 @@ parser.add_argument('api_endpoint', help='The API Endpoint to target with this A
 args = parser.parse_args()
 
 strata_interface = IronStrataReliquary(args.verbosity, args.k, args.u, args.p, args.api_endpoint)
-# Ensure that API Endpoint is a valid one
-validate = URLValidator()
-try:
-    validate(args.api_endpoint)
-except:
-    print('Invalid URL. Please try a valid URL. Example: "https://10.0.0.0/api"')
-    exit()
-
-print('Generated PAN-OS API Key!')
-
-# Generate Key
-strata_interface.do_api_get_auth_key()
 
 # Let's try deploying the payload!
 globalprotect_summary = strata_interface.validate_xml_from_string(strata_interface.do_api_get_opcmd_key(strata_interface.query_get_globalprotect_summary_v9))
