@@ -59,13 +59,17 @@ class IronStrataReliquary:
         4:   ('Internal Error', 'Check with technical support when seeing these errors.'),
         5:   ('Internal Error', 'Check with technical support when seeing these errors.'),
         6:   ('Bad Xpath', 'The xpath specified in one or more attributes of the command is invalid. Check the API browser for proper xpath values.'),
-        7:   ('Object Not Present', 'Object specified by the xpath is not present. For example, entry[@name="value"] where no object with name "value" is present.'),
+        7:   ('Object Not Present', 
+                'Object specified by the xpath is not present. For example, entry[@name="value"] where no object with name "value" is present.'),
         8:   ('Object Not Unique', 'For commands that operate on a single object, the specified object is not unique.'),
-        10:  ('Reference count not zero', 'Object cannot be deleted as there are other objects that refer to it. For example, address object still in use in policy.'),
+        10:  ('Reference count not zero', 
+                'Object cannot be deleted as there are other objects that refer to it. For example, address object still in use in policy.'),
         11:  ('Internal Error', 'Check with technical support when seeing these errors.'),
         12:  ('Invalid Object', 'Xpath or element values provided are not complete.'),
-        14:  ('Operation Not Possible', 'Operation is allowed but not possible in this case. For example, moving a rule up one position when it is already at the top.'),
-        15:  ('Operation Denied', 'Operation is allowed. For example, Admin not allowed to delete own account, Running a command that is not allowed on a passive device.'),
+        14:  ('Operation Not Possible', 
+                'Operation is allowed but not possible in this case. For example, moving a rule up one position when it is already at the top.'),
+        15:  ('Operation Denied', 
+                'Operation is allowed. For example, Admin not allowed to delete own account, Running a command that is not allowed on a passive device.'),
         16:  ('Unauthorized', 'The API role does not have access rights to run this query.'),
         17:  ('Invalid Command', 'Invalid command or parameters.'),
         18:  ('Malformed command', 'The XML is malformed'),
@@ -232,7 +236,8 @@ class IronStrataReliquary:
     # DO API GET for API Key
     def do_api_get_auth_key(self):
         try:
-            api_response = xmltodict.parse(self.do_api_get(self.strata_endpoint + '/?type=keygen&user=' + self.strata_username + '&password=' + self.strata_password), encoding='utf-8')
+            api_response = xmltodict.parse(self.do_api_get(self.strata_endpoint + '/?type=keygen&user=' +
+                                            self.strata_username + '&password=' + self.strata_password), encoding='utf-8')
         except:
             print('An error was encountered while parsing XML API Response!')
             exit()
