@@ -31,4 +31,4 @@ From there, it's possible to perform get and post invocations.
 
 ## Authors
 
-*Nick Schmidt*
+- *Nick Schmidt*
