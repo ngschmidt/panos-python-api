@@ -236,6 +236,7 @@ class IronStrataReliquary:
         except:
             print('An error was encountered while parsing XML API Response!')
             exit()
+        self.strata_authkey = api_response['response']['result']['key']
         return api_response['response']['result']['key']
 
 
@@ -281,7 +282,7 @@ except:
 
 # Let's try getting an API key first
 try:
-    strata_interface.strata_authkey = strata_interface.do_api_get_auth_key()
+    strata_interface.do_api_get_auth_key()
 except:
     print('Encountered an unhandled issue getting authorization key!')
     exit()
