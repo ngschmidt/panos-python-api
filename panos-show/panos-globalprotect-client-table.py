@@ -140,8 +140,8 @@ class IronStrataReliquary:
         except requests.ConnectionError as connection_error:
             print(connection_error)
         except requests.HTTPError:
-            if IronStrataReliquary.get_http_error_code(response_code):
-                print('HTTP Status Error ' + str(response_code) + ' ' + IronStrataReliquary.get_http_error_code(response_code))
+            if self.get_http_error_code(response_code):
+                print('HTTP Status Error ' + str(response_code) + ' ' + self.get_http_error_code(response_code))
                 exit()  # interpet the error, then close out so we don't have to put all the rest of our code in an except statement
             else:
                 print('Unhandled HTTP Error ' + str(response_code) + '!')
@@ -170,8 +170,8 @@ class IronStrataReliquary:
         except requests.ConnectionError as connection_error:
             print(connection_error)
         except requests.HTTPError:
-            if httperrors.get(response_code):
-                print('HTTP Status Error ' + str(response_code) + ' ' + httperrors.get(response_code)[max(min(args.verbosity, 1), 0)])
+            if self.get_http_error_code(response_code):
+                print('HTTP Status Error ' + str(response_code) + ' ' + self.get_http_error_code(response_code))
                 exit()  # interpet the error, then close out so we don't have to put all the rest of our code in an except statement
             else:
                 print('Unhandled HTTP Error ' + str(response_code) + '!')
@@ -199,8 +199,8 @@ class IronStrataReliquary:
         except requests.ConnectionError as connection_error:
             print(connection_error)
         except requests.HTTPError:
-            if httperrors.get(response_code):
-                print('HTTP Status Error ' + str(response_code) + ' ' + httperrors.get(response_code)[max(min(args.verbosity, 1), 0)])
+            if self.get_http_error_code(response_code):
+                print('HTTP Status Error ' + str(response_code) + ' ' + self.get_http_error_code(response_code))
                 exit()  # interpet the error, then close out so we don't have to put all the rest of our code in an except statement
             else:
                 print('Unhandled HTTP Error ' + str(response_code) + '!')
@@ -215,7 +215,7 @@ class IronStrataReliquary:
     # DO API GET for API Key
     def do_api_get_auth_key(self, do_api_get_auth_key_user, do_api_get_auth_key_password, do_api_get_auth_key_url, do_api_get_auth_key_certvalidation):
         try:
-            api_response = xmltodict.parse(do_api_get_unpw(do_api_get_auth_key_user, do_api_get_auth_key_password,
+            api_response = xmltodict.parse(self.do_api_get_unpw(do_api_get_auth_key_user, do_api_get_auth_key_password,
                                             do_api_get_auth_key_url + '/?type=keygen&user=' + do_api_get_auth_key_user + '&password=' + do_api_get_auth_key_password,
                                             do_api_get_auth_key_certvalidation), encoding='utf-8')
         except:
@@ -226,11 +226,11 @@ class IronStrataReliquary:
 
     # Do an API Op Command
     def do_api_get_opcmd_key(self, do_api_opcmd_auth_key, do_api_opcmd_url, do_api_opcmd_payload, do_api_certvalidation):
-        return do_api_get_key(do_api_opcmd_auth_key, do_api_opcmd_url, '/?type=op&cmd=' + do_api_opcmd_payload, do_api_certvalidation)
+        return self.do_api_get_key(do_api_opcmd_auth_key, do_api_opcmd_url, '/?type=op&cmd=' + do_api_opcmd_payload, do_api_certvalidation)
 
     # Get HTTP Error Code
     def get_http_error_code(self, get_http_error_code_code):
-        return IronStrataReliquary.httperrors.get(get_http_error_code_code)[max(min(IronStrataReliquary.verbosity, 1), 0)]
+        return self.httperrors.get(get_http_error_code_code)[max(min(IronStrataReliquary.verbosity, 1), 0)]
 
     # Validate XML from string
     def validate_xml_from_string(self, validate_xml_from_string_string):
