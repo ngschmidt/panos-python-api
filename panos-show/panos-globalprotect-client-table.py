@@ -141,15 +141,15 @@ class IronStrataReliquary:
     # Functions
 
     # Do API GET, using basic credentials
-    def do_api_get_unpw(self, do_api_unpw_user, do_api_unpw_password, do_api_unpw_url, do_api_certvalidation):
+    def do_api_get(self, do_api_unpw_url):
         # Perform API Processing - conditional basic authentication
         try:
-            do_api_unpw_headers = {'content-type': 'application/xml'}
-            do_api_unpw_r = requests.get(do_api_unpw_url, headers=do_api_unpw_headers, verify=do_api_certvalidation)
+            do_api_get_headers = {'content-type': 'application/xml'}
+            do_api_get_r = requests.get(do_api_unpw_url, headers=do_api_get_headers, verify=self.strata_certvalidation)
             # We'll be discarding the actual `Response` object after this, but we do want to get HTTP status for erro handling
-            response_code = do_api_unpw_r.status_code
-            do_api_unpw_r.raise_for_status()  # trigger an exception before trying to convert or read data. This should allow us to get good error info
-            return do_api_unpw_r.text  # if HTTP status is good, i.e. a 100/200 status code, we're going to convert the response into a json dict
+            response_code = do_api_get_r.status_code
+            do_api_get_r.raise_for_status()  # trigger an exception before trying to convert or read data. This should allow us to get good error info
+            return do_api_get_r.text  # if HTTP status is good, i.e. a 100/200 status code, we're going to convert the response into a json dict
         except requests.Timeout:
             print('API Connection timeout!')
         except requests.ConnectionError as connection_error:
@@ -170,12 +170,13 @@ class IronStrataReliquary:
 
     # Do API GET with Auth Key
     # Send a xml payload via the requests API
-    def do_api_get_key(self, do_api_post_auth_key, do_api_post_url, do_api_post_payload, do_api_certvalidation):
+    def do_api_get_key(self, do_api_post_url, do_api_post_payload):
         # Perform API Processing - conditional basic authentication
         try:
             do_api_post_headers = {'content-type': 'application/xml'}
-            print(do_api_post_url + do_api_post_payload + '&key=' + do_api_post_auth_key)
-            do_api_post_r = requests.get(do_api_post_url + do_api_post_payload + '&key=' + do_api_post_auth_key, headers=do_api_post_headers, verify=do_api_certvalidation)
+            print(do_api_post_url + do_api_post_payload + '&key=' + self.strata_authkey)
+            do_api_post_r = requests.get(do_api_post_url + do_api_post_payload + '&key=' + self.strata_authkey, 
+                                            headers=do_api_post_headers, verify=self.strata_certvalidation)
             # We'll be discarding the actual `Response` object after this, but we do want to get HTTP status for erro handling
             response_code = do_api_post_r.status_code
             do_api_post_r.raise_for_status()  # trigger an exception before trying to convert or read data. This should allow us to get good error info
@@ -200,11 +201,12 @@ class IronStrataReliquary:
 
     # Do API POST with Auth Key
     # Send a xml payload via the requests API
-    def do_api_post_key(self, do_api_post_auth_key, do_api_post_url, do_api_post_payload, do_api_certvalidation):
+    def do_api_post_key(self, do_api_post_url, do_api_post_payload):
         # Perform API Processing - conditional basic authentication
         try:
             do_api_post_headers = {'content-type': 'application/xml'}
-            do_api_post_r = requests.post(do_api_post_url + do_api_post_payload + '&key=' + do_api_post_auth_key, headers=do_api_post_headers, verify=do_api_certvalidation)
+            do_api_post_r = requests.post(do_api_post_url + do_api_post_payload + '&key=' + self.strata_authkey,
+                                            headers=do_api_post_headers, verify=self.strata_certvalidation)
             # We'll be discarding the actual `Response` object after this, but we do want to get HTTP status for erro handling
             response_code = do_api_post_r.status_code
             do_api_post_r.raise_for_status()  # trigger an exception before trying to convert or read data. This should allow us to get good error info
@@ -228,11 +230,9 @@ class IronStrataReliquary:
 
 
     # DO API GET for API Key
-    def do_api_get_auth_key(self, do_api_get_auth_key_user, do_api_get_auth_key_password, do_api_get_auth_key_url, do_api_get_auth_key_certvalidation):
+    def do_api_get_auth_key(self):
         try:
-            api_response = xmltodict.parse(self.do_api_get_unpw(do_api_get_auth_key_user, do_api_get_auth_key_password,
-                                            do_api_get_auth_key_url + '/?type=keygen&user=' + do_api_get_auth_key_user + '&password=' + do_api_get_auth_key_password,
-                                            do_api_get_auth_key_certvalidation), encoding='utf-8')
+            api_response = xmltodict.parse(self.do_api_get(self.strata_endpoint + '/?type=keygen&user=' + self.strata_username + '&password=' + self.strata_password), encoding='utf-8')
         except:
             print('An error was encountered while parsing XML API Response!')
             exit()
@@ -240,8 +240,8 @@ class IronStrataReliquary:
 
 
     # Do an API Op Command
-    def do_api_get_opcmd_key(self, do_api_opcmd_auth_key, do_api_opcmd_url, do_api_opcmd_payload, do_api_certvalidation):
-        return self.do_api_get_key(do_api_opcmd_auth_key, do_api_opcmd_url, '/?type=op&cmd=' + do_api_opcmd_payload, do_api_certvalidation)
+    def do_api_get_opcmd_key(self, do_api_opcmd_payload):
+        return self.do_api_get_key(self.strata_endpoint, '/?type=op&cmd=' + do_api_opcmd_payload)
 
     # Get HTTP Error Code
     def get_http_error_code(self, get_http_error_code_code):
@@ -281,7 +281,7 @@ except:
 
 # Let's try getting an API key first
 try:
-    session_auth_key = strata_interface.do_api_get_auth_key(args.u, args.p, args.api_endpoint, args.k)
+    strata_interface.strata_authkey = strata_interface.do_api_get_auth_key()
 except:
     print('Encountered an unhandled issue getting authorization key!')
     exit()
@@ -291,8 +291,8 @@ print('Generated PAN-OS API Key!')
 
 
 # Let's try deploying the payload!
-globalprotect_summary = strata_interface.validate_xml_from_string(strata_interface.do_api_get_opcmd_key(session_auth_key, args.api_endpoint, strata_interface.query_get_globalprotect_summary_v9, args.k))
-globalprotect_summary_detail = strata_interface.validate_xml_from_string(strata_interface.do_api_get_opcmd_key(session_auth_key, args.api_endpoint, strata_interface.query_get_globalprotect_summary_detail_v9, args.k))
+globalprotect_summary = strata_interface.validate_xml_from_string(strata_interface.do_api_get_opcmd_key(strata_interface.query_get_globalprotect_summary_v9))
+globalprotect_summary_detail = strata_interface.validate_xml_from_string(strata_interface.do_api_get_opcmd_key(strata_interface.query_get_globalprotect_summary_detail_v9))
 
 # Begin Processing API Data - Parsing Route Tables
 # Debugging shouldn't require code changes, let's use our verbosity switches
