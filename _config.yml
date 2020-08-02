@@ -1,3 +1,4 @@
 theme: jekyll-theme-architect
 title: IronStrataReliquary
 description: Library of XML and API request invocations for PAN-OS Strata management
+nav: sidebar-ironstratareliquary
