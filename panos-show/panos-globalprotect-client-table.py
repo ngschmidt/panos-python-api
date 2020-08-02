@@ -39,7 +39,7 @@ class IronStrataReliquary:
         self.strata_username = input_username
         self.strata_password = input_password
         self.strata_endpoint = input_endpoint
-        
+
         # Once variables are set, develop a relationship with said endpoint
         # Ensure that API Endpoint is a valid one
         validate = URLValidator()
