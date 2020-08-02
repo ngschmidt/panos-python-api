@@ -5,13 +5,9 @@
 
 # API Processing imports
 import requests
-import json
 
-# We like JSON, as We'd rather have only one language for data processing. Let's try xmltodict
+# Let's try xmltodict
 import xmltodict
-
-# Command line parsing imports
-import argparse
 
 # Command line validating imports
 from django.core.validators import URLValidator

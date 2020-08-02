@@ -3,18 +3,8 @@
 # Nicholas Schmidt
 # 31 Jul 2020
 
-# API Processing imports
-import requests
-import json
-
-# We like JSON, as We'd rather have only one language for data processing. Let's try xmltodict
-import xmltodict
-
 # Command line parsing imports
 import argparse
-
-# Command line validating imports
-from django.core.validators import URLValidator
 
 # Import IronStrataReliquary
 from IronStrataReliquary import IronStrataReliquary
