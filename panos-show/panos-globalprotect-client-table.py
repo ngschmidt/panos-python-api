@@ -41,8 +41,6 @@ class IronStrataReliquary:
         self.strata_endpoint = input_endpoint
 
     # Variable Declarations
-    strata_verbosity = 0
-    #
     #
     # XML Queries
     #
@@ -273,6 +271,7 @@ parser.add_argument('api_endpoint', help='The API Endpoint to target with this A
 
 args = parser.parse_args()
 
+strata_interface = IronStrataReliquary(args.v, args.k, args.u, args.p, args.auth_key, args.api_endpoint)
 # Ensure that API Endpoint is a valid one
 validate = URLValidator()
 try:
@@ -283,7 +282,7 @@ except:
 
 # Let's try getting an API key first
 try:
-    session_auth_key = IronStrataReliquary.do_api_get_auth_key(args.u, args.p, args.api_endpoint, args.k)
+    session_auth_key = strata_interface.do_api_get_auth_key(args.u, args.p, args.api_endpoint, args.k)
 except:
     print('Encountered an unhandled issue getting authorization key!')
     exit()
@@ -293,8 +292,8 @@ print('Generated PAN-OS API Key!')
 
 
 # Let's try deploying the payload!
-globalprotect_summary = IronStrataReliquary.validate_xml_from_string(do_api_get_opcmd_key(session_auth_key, args.api_endpoint, xml_payload_globalprotect_summary, args.k))
-globalprotect_summary_detail = IronStrataReliquary.validate_xml_from_string(do_api_get_opcmd_key(session_auth_key, args.api_endpoint, xml_payload_globalprotect_summary_detail, args.k))
+globalprotect_summary = strata_interface.validate_xml_from_string(strata_interface.do_api_get_opcmd_key(session_auth_key, args.api_endpoint, strata_interface.query_get_globalprotect_summary_v9, args.k))
+globalprotect_summary_detail = strata_interface.validate_xml_from_string(strata_interface.do_api_get_opcmd_key(session_auth_key, args.api_endpoint, strata_interface.query_get_globalprotect_summary_detail_v9, args.k))
 
 # Begin Processing API Data - Parsing Route Tables
 # Debugging shouldn't require code changes, let's use our verbosity switches
