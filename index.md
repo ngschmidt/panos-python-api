@@ -7,6 +7,7 @@ Provide an API interation library compatible with PAN-OS XML API
 ## To use these examples
 
 Create a new `IronStrataReliquary`:
+
 `strata_interface = IronStrataReliquary(args.verbosity, args.k, args.u, args.p, args.api_endpoint)`
 
 From there, it's possible to perform get and post invocations.
