@@ -1,3 +1,7 @@
+---
+title: "IronStrataReliquary"
+nav: sidebar-ironstratareliquary
+---
 # IronStrataReliquary
 
 ## What
