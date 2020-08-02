@@ -171,7 +171,6 @@ class IronStrataReliquary:
             print('Unhandled Requests exception!')
             exit()
 
-
     # Do API GET with Auth Key
     # Send a xml payload via the requests API
     def do_api_get_key(self, do_api_post_url, do_api_post_payload):
@@ -179,8 +178,8 @@ class IronStrataReliquary:
         try:
             do_api_post_headers = {'content-type': 'application/xml'}
             print(do_api_post_url + do_api_post_payload + '&key=' + self.strata_authkey)
-            do_api_post_r = requests.get(do_api_post_url + do_api_post_payload + '&key=' + self.strata_authkey, 
-                                            headers=do_api_post_headers, verify=self.strata_certvalidation)
+            do_api_post_r = requests.get(do_api_post_url + do_api_post_payload + '&key=' + self.strata_authkey,
+                                         headers=do_api_post_headers, verify=self.strata_certvalidation)
             # We'll be discarding the actual `Response` object after this, but we do want to get HTTP status for erro handling
             response_code = do_api_post_r.status_code
             do_api_post_r.raise_for_status()  # trigger an exception before trying to convert or read data. This should allow us to get good error info
@@ -201,7 +200,6 @@ class IronStrataReliquary:
         except:
             print('Unhandled Requests exception!')
             exit()
-
 
     # Do API POST with Auth Key
     # Send a xml payload via the requests API
@@ -232,7 +230,6 @@ class IronStrataReliquary:
             print('Unhandled Requests exception!')
             exit()
 
-
     # DO API GET for API Key
     def do_api_get_auth_key(self):
         try:
@@ -243,7 +240,6 @@ class IronStrataReliquary:
             exit()
         self.strata_authkey = api_response['response']['result']['key']
         return api_response['response']['result']['key']
-
 
     # Do an API Op Command
     def do_api_get_opcmd_key(self, do_api_opcmd_payload):
