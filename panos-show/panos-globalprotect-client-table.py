@@ -208,7 +208,7 @@ class IronStrataReliquary:
         try:
             do_api_post_headers = {'content-type': 'application/xml'}
             do_api_post_r = requests.post(do_api_post_url + do_api_post_payload + '&key=' + self.strata_authkey,
-                                            headers=do_api_post_headers, verify=self.strata_certvalidation)
+                                          headers=do_api_post_headers, verify=self.strata_certvalidation)
             # We'll be discarding the actual `Response` object after this, but we do want to get HTTP status for erro handling
             response_code = do_api_post_r.status_code
             do_api_post_r.raise_for_status()  # trigger an exception before trying to convert or read data. This should allow us to get good error info
@@ -234,7 +234,7 @@ class IronStrataReliquary:
     def do_api_get_auth_key(self):
         try:
             api_response = xmltodict.parse(self.do_api_get(self.strata_endpoint + '/?type=keygen&user=' +
-                                            self.strata_username + '&password=' + self.strata_password), encoding='utf-8')
+                                           self.strata_username + '&password=' + self.strata_password), encoding='utf-8')
         except:
             print('An error was encountered while parsing XML API Response!')
             exit()
@@ -258,6 +258,7 @@ class IronStrataReliquary:
             print('Invalid XML found! Exiting...')
             exit()
         return return_dict_from_xml
+
 
 # Arguments Parsing
 parser = argparse.ArgumentParser(description='Fetch via API')
