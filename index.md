@@ -1,16 +1,15 @@
-# PAN-OS Operational Commands
+# IronStrataReliquary
 
 ## Synopsis
 
-Collection on routing operational commands as automation candidates. This is a pre-cursor to systems-level CRUD operations within PAN-OS, like:
-
-- Ensuring BGP Neighborships are established, and exchanging routes
-- Tracking GlobalProtect client tables
-- Searching for anomalies in the session table
+Provide an API interation library compatible with PAN-OS XML API
 
 ## To use these examples
 
-Run these python scripts
+Create a new `IronStrataReliquary`:
+`strata_interface = IronStrataReliquary(args.verbosity, args.k, args.u, args.p, args.api_endpoint)`
+
+From there, it's possible to perform get and post invocations.
 
 ## Tested Platforms
 
@@ -23,6 +22,7 @@ Run these python scripts
 - Python 3.
 - Django Core. Required for URL/URI Validation and parsing.
 - Requests. You can't really make API calls without it.
+- xmltodict. Required to process API responses
 - JSON
 
 ## TODO
@@ -31,4 +31,4 @@ Run these python scripts
 
 ## Authors
 
-*Nick Schmidt*
+- *Nick Schmidt*
