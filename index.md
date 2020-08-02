@@ -7,7 +7,7 @@ nav: sidebar-ironstratareliquary
 
 ## What
 
-Library of XML and API request invocations for PAN-OS Strata management
+Python class for interacting with PAN-OS API
 
 ## How
 
