@@ -268,10 +268,9 @@ unpw.add_argument('-p', help='Password')
 cert = subparsers.add_parser('key', help='Use Key Authentication')
 cert.add_argument('--auth_key', help='Authentication Key')
 parser.add_argument('api_endpoint', help='The API Endpoint to target with this API call. PAN-OS XML API is at https://<ip>/api')
-
 args = parser.parse_args()
 
-strata_interface = IronStrataReliquary(args.v, args.k, args.u, args.p, args.auth_key, args.api_endpoint)
+strata_interface = IronStrataReliquary(args.verbosity, args.k, args.u, args.p, '', args.api_endpoint)
 # Ensure that API Endpoint is a valid one
 validate = URLValidator()
 try:
