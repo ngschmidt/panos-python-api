@@ -22,10 +22,27 @@ from django.core.validators import URLValidator
 # They're not here to stay, just passing through
 class IronStrataReliquary:
     
-    # Variable Declarations
+    # Initial Variable Settings
     #
-    # Globals
-    verbosity = 0
+    strata_verbosity = 0
+    strata_certvalidation = True
+    strata_username = ''
+    strata_password = ''
+    strata_authkey = ''
+    strata_endpoint = ''
+
+    # And win specific endpoint
+    def __init__(self, input_verbosity, input_certvalidation, input_username, input_password, input_authkey, input_endpoint):
+        self.strata_verbosity = input_verbosity
+        self.strata_certvalidation = input_certvalidation
+        self.strata_username = input_username
+        self.strata_password = input_password
+        self.strata_authkey = input_authkey
+        self.strata_endpoint = input_endpoint
+
+    # Variable Declarations
+    strata_verbosity = 0
+    #
     #
     # XML Queries
     #
@@ -230,7 +247,7 @@ class IronStrataReliquary:
 
     # Get HTTP Error Code
     def get_http_error_code(self, get_http_error_code_code):
-        return self.httperrors.get(get_http_error_code_code)[max(min(IronStrataReliquary.verbosity, 1), 0)]
+        return self.httperrors.get(get_http_error_code_code)[max(min(self.strata_verbosity, 1), 0)]
 
     # Validate XML from string
     def validate_xml_from_string(self, validate_xml_from_string_string):
