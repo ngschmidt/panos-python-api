@@ -195,7 +195,8 @@ class IronStrataReliquary:
         # Perform API Processing - conditional basic authentication
         try:
             do_api_post_headers = {'content-type': 'application/xml'}
-            print(do_api_post_url + do_api_post_payload + '&key=' + self.strata_authkey)
+            if(self.strata_verbosity > 0):
+                print(do_api_post_url + do_api_post_payload + '&key=' + self.strata_authkey)
             do_api_post_r = requests.get(do_api_post_url + do_api_post_payload + '&key=' + self.strata_authkey,
                                          headers=do_api_post_headers, verify=self.strata_certvalidation)
             # We'll be discarding the actual `Response` object after this, but we do want to get HTTP status for erro handling
@@ -276,3 +277,7 @@ class IronStrataReliquary:
             print('Invalid XML found! Exiting...')
             exit()
         return return_dict_from_xml
+
+    # Validate API responses
+    def validate_opcmd_response(self, validate_opcmd_response_response):
+        return '<response status=\"success\"><result>' in validate_opcmd_response_response

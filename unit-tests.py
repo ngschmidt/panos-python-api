@@ -19,7 +19,6 @@ from django.core.validators import URLValidator
 # Import IronStrataReliquary
 from IronStrataReliquary import IronStrataReliquary
 
-
 # Arguments Parsing
 parser = argparse.ArgumentParser(description='Fetch via API')
 parser.add_argument('-v', '--verbosity', action='count', default=0, help='Output Verbosity')
@@ -36,10 +35,12 @@ args = parser.parse_args()
 strata_interface = IronStrataReliquary(args.verbosity, args.k, args.u, args.p, args.api_endpoint)
 
 # Let's try deploying the payload!
-globalprotect_summary = strata_interface.validate_xml_from_string(strata_interface.do_api_get_opcmd_key(strata_interface.query_get_globalprotect_summary_v9))
-globalprotect_summary_detail = strata_interface.validate_xml_from_string(strata_interface.do_api_get_opcmd_key(strata_interface.query_get_globalprotect_summary_detail_v9))
-
-# Begin Processing API Data - Parsing Route Tables
-# Debugging shouldn't require code changes, let's use our verbosity switches
-print(json.dumps(globalprotect_summary))
-print(json.dumps(globalprotect_summary_detail))
+unit_tests = {
+    1:  ('GlobalProtect Summary', strata_interface.query_get_globalprotect_summary_v9),
+    2:  ('GlobalProtect Summary Detail', strata_interface.query_get_globalprotect_summary_detail_v9)
+}
+for i in unit_tests:
+    res = strata_interface.do_api_get_opcmd_key(unit_tests[i][1])
+    print(unit_tests[i][0] + ' Result: ' + str(strata_interface.validate_opcmd_response(res)))
+    if(strata_interface.strata_verbosity > 0):
+        print(res)
