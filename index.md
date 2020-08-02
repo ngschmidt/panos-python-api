@@ -1,22 +1,19 @@
 # IronStrataReliquary
 
-## Synopsis
+## What
 
-Provide an API interation library compatible with PAN-OS XML API
+Library of XML and API request invocations for PAN-OS Strata management
 
-## To use these examples
+## How
 
-Create a new `IronStrataReliquary`:
-
+Create a new `IronStrataReliquary`, where `strata_interface` is the name of your Strata appliance:
 `strata_interface = IronStrataReliquary(args.verbosity, args.k, args.u, args.p, args.api_endpoint)`
+From there, it's possible to perform get and post invocations. Example:
+`strata_interface.do_api_get_opcmd_key(strata_interface.query_get_globalprotect_summary_v9`
 
-From there, it's possible to perform get and post invocations.
+## Why
 
-## Tested Platforms
-
-- PAN-OS 9.0
-- PAN-OS 9.1
-- PAN-OS 10.0
+Toil tasks such as routing changes should be automatically validated, e.g.
 
 ### Dependencies
 
