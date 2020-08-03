@@ -59,8 +59,12 @@ class IronStrataReliquary:
     # XML Queries
     #
     # GlobalProtect
-    query_get_globalprotect_summary_v9 = '<show><global-protect-gateway><summary><all/></summary></global-protect-gateway></show>'
-    query_get_globalprotect_summary_detail_v9 = '<show><global-protect-gateway><summary><detail/></summary></global-protect-gateway></show>'
+    strata_bibliotheca = {
+        'globalprotect_summary_v9':         ('<show><global-protect-gateway><summary><all/></summary></global-protect-gateway></show>',
+                                             '<response status=\"success\"><result>'),
+        'globalprotect_summary_detail_v9':  ('<show><global-protect-gateway><summary><detail/></summary></global-protect-gateway></show>',
+                                             '<response status=\"success\"><result>')
+    }
     #
     # Set HTTP Error + Verbosity table. Due to the use of max(min()), verbosity count becomes a numerical range that caps off and prevents array issues
     # Credit where due - https://gist.github.com/bl4de/3086cf26081110383631 by bl4de
@@ -275,5 +279,5 @@ class IronStrataReliquary:
         return return_dict_from_xml
 
     # Validate API responses
-    def validate_opcmd_response(self, validate_opcmd_response_response):
-        return '<response status=\"success\"><result>' in validate_opcmd_response_response
+    def validate_opcmd_response(self, validate_opcmd_response_name, validate_opcmd_response_response):
+        return self.strata_bibliotheca[validate_opcmd_response_name][1] in validate_opcmd_response_response
