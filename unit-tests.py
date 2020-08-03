@@ -25,12 +25,8 @@ args = parser.parse_args()
 strata_interface = IronStrataReliquary(args.verbosity, args.k, args.u, args.p, args.api_endpoint)
 
 # Let's try deploying the payload!
-unit_tests = {
-    1:  ('GlobalProtect Summary', strata_interface.query_get_globalprotect_summary_v9),
-    2:  ('GlobalProtect Summary Detail', strata_interface.query_get_globalprotect_summary_detail_v9)
-}
-for i in unit_tests:
-    res = strata_interface.do_api_get_opcmd_key(unit_tests[i][1])
-    print(unit_tests[i][0] + ' Result: ' + str(strata_interface.validate_opcmd_response(res)))
+for i in strata_interface.strata_bibliotheca:
+    res = strata_interface.do_api_get_opcmd_key(strata_interface.strata_bibliotheca[i][0])
+    print(str(i) + ' Result: ' + str(strata_interface.validate_opcmd_response(i, res)))
     if(strata_interface.strata_verbosity > 0):
         print(res)
