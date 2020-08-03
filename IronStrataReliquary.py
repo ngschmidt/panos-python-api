@@ -58,7 +58,9 @@ class IronStrataReliquary:
     #
     # XML Queries
     #
-    # GlobalProtect
+    # List of all saved queries.
+    #
+    # Naming Convention: <module>_<name>_<first tested version>
     strata_bibliotheca = {
         'globalprotect_summary_v9':         ('<show><global-protect-gateway><summary><all/></summary></global-protect-gateway></show>',
                                              '<response status=\"success\"><result>'),
