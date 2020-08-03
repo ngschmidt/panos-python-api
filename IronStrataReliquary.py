@@ -67,13 +67,13 @@ class IronStrataReliquary:
         'globalprotect_summary_detail_v9':  ('<show><global-protect-gateway><summary><detail/></summary></global-protect-gateway></show>',
                                              '<response status=\"success\"><result>'),
         'routing_route_v9':                  ('<show><routing><route/></routing></show>',
-                                             '<response status=\"success\"><result>'),
+                                              '<response status=\"success\"><result>'),
         'routing_summary_v9':                ('<show><routing><summary/></routing></show>',
-                                             '<response status=\"success\"><result>'),
+                                              '<response status=\"success\"><result>'),
         'routing_capacity_v9':               ('<show><routing><resource/></routing></show>',
-                                             '<response status=\"success\"><result>'),
+                                              '<response status=\"success\"><result>'),
         'bgp_summary_v9':                    ('<show><routing><protocol><bgp><summary/></bgp></protocol></routing></show>',
-                                             '<response status=\"success\"><result>')
+                                              '<response status=\"success\"><result>')
     }
     #
     # Set HTTP Error + Verbosity table. Due to the use of max(min()), verbosity count becomes a numerical range that caps off and prevents array issues
