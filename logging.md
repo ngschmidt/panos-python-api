@@ -1,6 +1,6 @@
 # Logging Schema
 
-[Back to Home Page]<https://ngschmidt.github.io/panos-python-api/>
+[Back to Home Page](https://ngschmidt.github.io/panos-python-api/)
 
 ## Errors
 
