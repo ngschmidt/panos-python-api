@@ -1,5 +1,7 @@
 # Logging Schema
 
+[Back to Home Page]<https://ngschmidt.github.io/panos-python-api/>
+
 ## Errors
 
 Defined as an event that cannot be escaped from, the program should close (or rollback) to prevent impact.

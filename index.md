@@ -4,6 +4,8 @@
 
 Python class for interacting with PAN-OS API
 
+- [Logging Practices](./logging.html)
+
 ## How
 
 Create a new `IronStrataReliquary`, where `strata_interface` is the name of your Strata appliance:
