@@ -42,7 +42,7 @@ class IronStrataReliquary:
         try:
             validate(self.strata_endpoint)
         except:
-            print('Invalid URL. Please try a valid URL. Example: "https://10.0.0.0/api"')
+            print('E0001: Invalid URL. Please try a valid URL. Example: "https://10.0.0.0/api"')
             exit()
 
         # If URL is valid, try to establish session key
@@ -50,7 +50,7 @@ class IronStrataReliquary:
             api_response = xmltodict.parse(self.do_api_get(self.strata_endpoint + '/?type=keygen&user=' +
                                            self.strata_username + '&password=' + self.strata_password), encoding='utf-8')
         except:
-            print('An error was encountered while parsing XML API Response!')
+            print('E1001: An error was encountered while parsing XML API Response!')
             exit()
         self.strata_authkey = api_response['response']['result']['key']
 
@@ -183,20 +183,20 @@ class IronStrataReliquary:
             do_api_get_r.raise_for_status()  # trigger an exception before trying to convert or read data. This should allow us to get good error info
             return do_api_get_r.text  # if HTTP status is good, i.e. a 100/200 status code, we're going to convert the response into a json dict
         except requests.Timeout:
-            print('API Connection timeout!')
+            print('E1000: API Connection timeout!')
         except requests.ConnectionError as connection_error:
             print(connection_error)
         except requests.HTTPError:
             if self.get_http_error_code(response_code):
-                print('HTTP Status Error ' + str(response_code) + ' ' + self.get_http_error_code(response_code))
+                print('EA' + str(response_code) + ': HTTP Status Error ' + str(response_code) + ' ' + self.get_http_error_code(response_code))
                 exit()  # interpet the error, then close out so we don't have to put all the rest of our code in an except statement
             else:
-                print('Unhandled HTTP Error ' + str(response_code) + '!')
+                print('EA999: Unhandled HTTP Error ' + str(response_code) + '!')
                 exit()  # interpet the error, then close out so we don't have to put all the rest of our code in an except statement
         except requests.RequestException as requests_exception:
             print(requests_exception)
         except:
-            print('Unhandled Requests exception!')
+            print('E1002: Unhandled Requests exception!')
             exit()
 
     # Do API GET with Auth Key
@@ -214,20 +214,20 @@ class IronStrataReliquary:
             do_api_post_r.raise_for_status()  # trigger an exception before trying to convert or read data. This should allow us to get good error info
             return do_api_post_r.text  # if HTTP status is good, i.e. a 100/200 status code, we're going to convert the response into a json dict
         except requests.Timeout:
-            print('API Connection timeout!')
+            print('E1000: API Connection timeout!')
         except requests.ConnectionError as connection_error:
             print(connection_error)
         except requests.HTTPError:
             if self.get_http_error_code(response_code):
-                print('HTTP Status Error ' + str(response_code) + ' ' + self.get_http_error_code(response_code))
+                print('EA' + str(response_code) + ': HTTP Status Error ' + str(response_code) + ' ' + self.get_http_error_code(response_code))
                 exit()  # interpet the error, then close out so we don't have to put all the rest of our code in an except statement
             else:
-                print('Unhandled HTTP Error ' + str(response_code) + '!')
+                print('EA999: Unhandled HTTP Error ' + str(response_code) + '!')
                 exit()  # interpet the error, then close out so we don't have to put all the rest of our code in an except statement
         except requests.RequestException as requests_exception:
             print(requests_exception)
         except:
-            print('Unhandled Requests exception!')
+            print('E1002: Unhandled Requests exception!')
             exit()
 
     # Do API POST with Auth Key
@@ -243,20 +243,20 @@ class IronStrataReliquary:
             do_api_post_r.raise_for_status()  # trigger an exception before trying to convert or read data. This should allow us to get good error info
             return do_api_post_r.text  # if HTTP status is good, i.e. a 100/200 status code, we're going to convert the response into a json dict
         except requests.Timeout:
-            print('API Connection timeout!')
+            print('E1000: API Connection timeout!')
         except requests.ConnectionError as connection_error:
             print(connection_error)
         except requests.HTTPError:
             if self.get_http_error_code(response_code):
-                print('HTTP Status Error ' + str(response_code) + ' ' + self.get_http_error_code(response_code))
+                print('EA' + str(response_code) + ': HTTP Status Error ' + str(response_code) + ' ' + self.get_http_error_code(response_code))
                 exit()  # interpet the error, then close out so we don't have to put all the rest of our code in an except statement
             else:
-                print('Unhandled HTTP Error ' + str(response_code) + '!')
+                print('EA999: Unhandled HTTP Error ' + str(response_code) + '!')
                 exit()  # interpet the error, then close out so we don't have to put all the rest of our code in an except statement
         except requests.RequestException as requests_exception:
             print(requests_exception)
         except:
-            print('Unhandled Requests exception!')
+            print('E1002: Unhandled Requests exception!')
             exit()
 
     # DO API GET for API Key
@@ -265,7 +265,7 @@ class IronStrataReliquary:
             api_response = xmltodict.parse(self.do_api_get(self.strata_endpoint + '/?type=keygen&user=' +
                                            self.strata_username + '&password=' + self.strata_password), encoding='utf-8')
         except:
-            print('An error was encountered while parsing XML API Response!')
+            print('E2001: An error was encountered while parsing XML API Response!')
             exit()
         self.strata_authkey = api_response['response']['result']['key']
         return api_response['response']['result']['key']
@@ -284,7 +284,7 @@ class IronStrataReliquary:
         try:
             return_dict_from_xml = xmltodict.parse(validate_xml_from_string_string, encoding='utf-8')
         except:
-            print('Invalid XML found! Exiting...')
+            print('E2001: Invalid XML found! Exiting...')
             exit()
         return return_dict_from_xml
 
