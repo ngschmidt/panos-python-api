@@ -9,7 +9,9 @@ Python class for interacting with PAN-OS API
 ## How
 
 Create a new `IronStrataReliquary`, where `strata_interface` is the name of your Strata appliance:
-`strata_interface = IronStrataReliquary(args.verbosity, args.k, args.u, args.p, args.api_endpoint)`
+''' python
+strata_interface = IronStrataReliquary(args.verbosity, args.k, args.u, args.p, args.api_endpoint)
+'''
 From there, it's possible to perform get and post invocations. Example:
 `strata_interface.do_api_get_opcmd_key(strata_interface.query_get_globalprotect_summary_v9`
 
