@@ -2,7 +2,7 @@
 
 ## Synopsis
 
-Provide an API interation library compatible with PAN-OS XML API
+Provide an API interaction library compatible with PAN-OS XML API
 
 ## To use these examples
 
